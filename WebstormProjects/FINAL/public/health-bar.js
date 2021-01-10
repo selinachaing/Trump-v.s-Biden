@@ -10,9 +10,9 @@ class HealthBar {
         this.color = color;
     }
     show(context) {
-        context.lineWidth = 4;
-        context.strokeStyle = "#333";
-        context.fillStyle = this.color;
+        context.lineWidth = 4;//粗度
+        context.strokeStyle = "#333";//線顏色
+        context.fillStyle = this.color;//血槽顏色
         context.fillRect(this.x, this.y, this.w, this.h);
         context.strokeRect(this.x, this.y, this.maxWidth, this.h);
     }
@@ -23,3 +23,22 @@ class HealthBar {
         }
     }
 }
+/*
+class health_num{
+    constructor(x,y,num,color){
+        this.x=x;
+        this.y=y;
+        this.num=num;
+        this.color = color;
+    }
+    show(context){
+        context.font = "30px Arial";
+        contex.fillText(this.num,this.x,this.y);
+    }
+    updateHealth(val) {
+        if (val >= 0) {
+            this.health = val;
+            this.w = (this.health / this.maxHealth) * this.maxWidth;
+        }
+    }
+}*/
