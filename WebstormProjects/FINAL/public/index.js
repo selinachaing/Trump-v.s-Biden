@@ -1,6 +1,13 @@
-//draw background 800*600
+//draw canvas_score
+//let canvas_score = document.getElementById("canvas_score"),
+//    context_score = canvas_score.getContext("2d"); //canvas score
+//draw canvas_above
+let canvas_above = document.getElementById("canvas_above"),
+    context_above = canvas_above.getContext("2d"); //canvas
+//draw canvas 800*600
 let canvas = document.getElementById("canvas"),
     context = canvas.getContext("2d"); //canvas
+
 let img_Background = new Image();
     img_Background.src = "/assets/background.png";
     img_Background.Id = "img_Background";
@@ -8,7 +15,6 @@ img_Background.onload = function(){
     context.imageSmoothingEnabled = false;
     context.drawImage(img_Background,0,0,800,600);
 }
-
 //draw News 800*100
 let canvasNews = document.getElementById("canvasNews"),
     contextNews = canvasNews .getContext("2d"); //canvasNews
@@ -20,7 +26,7 @@ img_News.onload = function(){
 }
 
 //people x,y,size
-const people_x1 =50, people_x2=600;
+const people_x1 =-10, people_x2=600;
 const people_y=290;
 const people_w=250,people_h=250;
 //draw trump
