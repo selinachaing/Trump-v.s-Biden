@@ -3,42 +3,69 @@ let turn_trump = true,turn_biden = false;
 //換回合數，川普先攻
 //川普-->1 ;拜登-->0
 let trump_area=false,biden_area=false;
-let skill_1=false,skill_2=false,skill_3=false,skill_4=false; //area
+//area
+let skill_1=false,skill_2=false,skill_3=false,skill_4=false;
+let add_1=false,add_2=false;
+//skill only use once
 let skillcount_1=1,skillcount_2=1,skillcount_3=1,skillcount_4=1;
+let addcount_1=1,addcount_2=1;
 
-
-startTimer();
+//startTimer();
 
 canvas.onmousemove = function (e){
     let X = e.offsetX;
     let Y = e.offsetY;
+
+    //trump add1
+    if(X > icon_add1 && X < icon_add1+icon_w && Y > icon_y && Y < icon_y+icon_h){
+        add_1 =true;
+        trump_skill_add.src = "/assets/icon_hover_推特鳥.png";
+    }else{
+        add_1 =false;
+        trump_skill_add.src = "/assets/icon_推特鳥.png";
+    }
     //trump skill 0
     if(X > icon_x1 && X < icon_x1+icon_w && Y > icon_y && Y < icon_y+icon_h){
         skill_1 =true;
+        trump_skill_0.src = "/assets/icon_hover_筆電.png";
     }else{
         skill_1 =false;
+        trump_skill_0.src = "/assets/icon_筆電.png";
     }
     //trump skill 1
     if(X > icon_x2 && X < icon_x2+icon_w && Y > icon_y && Y < icon_y+icon_h){
         skill_2 =true;
-        console.log("skill 2 is here!");
+        trump_skill_1.src = "/assets/icon_hover_拜登子.png";
     }else{
         skill_2 =false;
+        trump_skill_1.src = "/assets/icon_拜登子.png";
     }
+    ///////////////////////////
     //biden skill 0
     if(X > icon_x3 && X < icon_x3+icon_w && Y > icon_y && Y < icon_y+icon_h){
         skill_3 =true;
-        console.log("skill 3 is here!");
+        biden_skill_0.src = "/assets/icon_hover_女優.png";
     }else{
         skill_3 =false;
+        biden_skill_0.src = "/assets/icon_女優.png";
     }
     //biden skill 1
     if(X > icon_x4 && X < icon_x4+icon_w && Y > icon_y && Y < icon_y+icon_h) {
         skill_4 =true;
-        console.log("skill 4 is here!");
+        biden_skill_1.src = "/assets/icon_hover_covid.png";
     }else{
         skill_4 =false;
+        biden_skill_1.src = "/assets/icon_covid.png";
     }
+    //biden add1
+    if(X > icon_add2 && X < icon_add2+icon_w && Y > icon_y && Y < icon_y+icon_h){
+        add_2 =true;
+        biden_skill_add.src = "/assets/icon_hover_郵件選票.png";
+    }else{
+        add_2 =false;
+        biden_skill_add.src = "/assets/icon_郵件選票.png";
+    }
+    ////////////////////////////
     //TRUMP
     if(X > people_x1 && X < people_x1+people_w && Y > people_y && Y < people_y+people_h){
         trump_area =true;
@@ -53,26 +80,37 @@ canvas.onmousemove = function (e){
     }
 }
 canvas.onclick = function (){
-
+    //trump add
+    if(add_1 && addcount_1 > 0){
+        console.log("using trump add ");
+        addcount_1 -= 1;
+    }
     //trump skill 0
     if(skill_1 && skillcount_1 > 0){
-        console.log("using skill 1 ");//success
+        console.log("using skill 1 ");
         skillcount_1 -= 1;
     }
     //trump skill 1
     if(skill_2 && skillcount_2 > 0){
-        console.log("using skill 2 ");//success
+        console.log("using skill 2 ");
         skillcount_2 -= 1;
     }
+    ////////////
+
     //biden skill 0
     if(skill_3 && skillcount_3 > 0){
-        console.log("using skill 3 ");//success
+        console.log("using skill 3 ");
         skillcount_3 -= 1;
     }
     //biden skill 1
     if(skill_4 && skillcount_4 > 0) {
-        console.log("using skill 4 ");//success
+        console.log("using skill 4 ");
         skillcount_4 -= 1;
+    }
+    //biden add
+    if(add_2 && addcount_2 > 0){
+        console.log("using biden add ");
+        addcount_2 -= 1;
     }
 }
 canvas.onmousedown = function (){
@@ -81,6 +119,20 @@ canvas.onmousedown = function (){
     }
     if(biden_area &&  turn_biden){
         console.log("biden is ready");
+    }
+}
+canvas.onmouseup = function (){
+    if(trump_area &&  turn_trump){
+        console.log("trump attack");
+        onTimesUp();
+        resetTimer();
+        switchRound();
+    }
+    if(biden_area &&  turn_biden){
+        console.log("biden attack");
+        onTimesUp();
+        resetTimer();
+        switchRound()
     }
 }
 //mouseup為測試
@@ -108,20 +160,6 @@ canvas.onmouseup = function() {
 };
 
  */
-canvas.onmouseup = function (){
-    if(trump_area &&  turn_trump){
-        console.log("trump attack");
-        onTimesUp();
-        resetTimer();
-        switchRound();
-    }
-    if(biden_area &&  turn_biden){
-        console.log("biden attack");
-        onTimesUp();
-        resetTimer();
-        switchRound()
-    }
-}
 
 function switchRound(){
     turn = (turn+1)%2;//換回合數
@@ -163,6 +201,8 @@ function onTimesUp(){
     clearInterval(timerInterval);
     console.log("time's up!");
 }
+
+
 
 
 

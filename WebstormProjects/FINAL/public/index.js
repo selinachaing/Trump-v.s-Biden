@@ -29,36 +29,51 @@ img_Biden.onload = function(){
     context.drawImage(img_Biden,people_x2,people_y,people_w,people_h);
 }
 //icon x,y,size
-const icon_y =50;
+const icon_y =65;
 const icon_w=60,icon_h=60;
-const icon_x1=10,icon_x2=110;
-const icon_x3=600,icon_x4=700;
+const icon_add1=10;
+const icon_x1=80,icon_x2=150; //trump
+const icon_x3=590,icon_x4=660; //biden
+const icon_add2=730;
 //draw skill icon
-let trump_skill_0 = new Image();
-    trump_skill_0.src = "/assets/筆電.png";
+
+let trump_skill_add = new Image(); //trump add
+    trump_skill_add.src = "/assets/icon_推特鳥.png";
+    trump_skill_add.onload =  function(){
+    context.imageSmoothingEnabled = false;
+    context.drawImage(trump_skill_add,icon_add1,icon_y,icon_w,icon_h);
+}
+let trump_skill_0 = new Image(); //skill
+    trump_skill_0.src = "/assets/icon_筆電.png";
     trump_skill_0.onload =  function(){
         context.imageSmoothingEnabled = false;
         context.drawImage(trump_skill_0,icon_x1,icon_y,icon_w,icon_h);
     }
-let trump_skill_1 = new Image();
-    trump_skill_1.src = "/assets/拜登子.png";
+let trump_skill_1 = new Image(); //skill
+    trump_skill_1.src = "/assets/icon_拜登子.png";
     trump_skill_1.onload =  function(){
         context.imageSmoothingEnabled = false;
         context.drawImage(trump_skill_1,icon_x2,icon_y,icon_w,icon_h);
     }
-
+//biden
 let biden_skill_0 = new Image();
-    biden_skill_0.src = "/assets/女優.png";
+    biden_skill_0.src = "/assets/icon_女優.png";
     biden_skill_0.onload =  function(){
         context.imageSmoothingEnabled = false;
         context.drawImage(biden_skill_0,icon_x3,icon_y,icon_w,icon_h);
     }
 let biden_skill_1 = new Image(); //(700,50),60*60
-    biden_skill_1.src = "/assets/郵件選票.png";
+    biden_skill_1.src = "/assets/icon_covid.png";
     biden_skill_1.onload =  function(){
         context.imageSmoothingEnabled = false;
         context.drawImage(biden_skill_1,icon_x4,icon_y,icon_w,icon_h);
     }
+let biden_skill_add = new Image(); //trump add
+    biden_skill_add.src = "/assets/icon_郵件選票.png";
+    biden_skill_add.onload =  function(){
+    context.imageSmoothingEnabled = false;
+    context.drawImage(biden_skill_add,icon_add2,icon_y,icon_w,icon_h);
+}
 
 // draw health bar
 const width = canvas.width;//800
