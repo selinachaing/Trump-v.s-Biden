@@ -140,8 +140,8 @@ canvas.onclick = function (){
     if(turn_trump) {
         //trump add
         if (add_1 && addcount_1 > 0) {
-            //+30
-            healthBar_trump.health += 30;
+            //+10
+            healthBar_trump.health += 10;
             healthBar_trump.updateHealth(healthBar_trump.health);
             displayPic("/assets/技能動畫1.png");
             displayNews("川普再度露面氣色好轉，誓言全力抗疫狂發推特！I FEEL LIKE SUPER MAN!!!", 10, 50);//
@@ -186,8 +186,8 @@ canvas.onclick = function (){
         }
         //biden add
         if (add_2 && addcount_2 > 0) {
-            //+30
-            healthBar_biden.health += 30;
+            //+10
+            healthBar_biden.health += 10;
             healthBar_biden.updateHealth(healthBar_biden.health);
             displayPic("/assets/技能動畫2.png");
             displayNews("大逆轉！！郵寄選票翻轉搖擺州！！拜登目前領先川普！！", 10, 50);//
@@ -245,7 +245,7 @@ canvas.onmouseup = function() {
 
  */
 
-const TIME_LIMIT = 15;//10秒換組
+const TIME_LIMIT = 16;//10秒換組
 let timePassed = 0;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null; //剩下時間
@@ -267,19 +267,6 @@ const COLOR_CODES = {
 };
 let remainingPathColor = COLOR_CODES.info.color;
 
-function startTimer(){ //開始計時
-    let timerInterval = setInterval(function(){
-        console.log(timeLeft, turn);/////
-        document.getElementById("base-timer-label").innerHTML = timeLeft;
-        timePassed += 1;
-        timeLeft = TIME_LIMIT - timePassed;
-        if(timeLeft === 0 ){//時間到
-            onTimesUp();
-            resetTimer();
-            switchRound();//換人
-        }
-    },1000);//每一秒變換
-}
 function resetTimer(){
     timePassed = 0;
     timeLeft = TIME_LIMIT; //要加這行 不然第二論會是0 9 8 7 ...而不是從10開始
@@ -287,6 +274,22 @@ function resetTimer(){
 function onTimesUp(){
     clearInterval(timerInterval);
     console.log("time's up!");
+}
+function startTimer(){ //開始計時
+    let timerInterval = setInterval(function(){
+        console.log(timeLeft, turn);/////
+
+        setCircleDasharray();
+        timePassed += 1;
+        timeLeft = TIME_LIMIT - timePassed;
+        document.getElementById("base-timer-label").innerHTML = timeLeft;
+        //document.getElementById("base-timer-label").innerHTML = timeLeft;
+        if(timeLeft === 0 ){//時間到
+            onTimesUp();
+            resetTimer();
+            switchRound();//換人
+        }
+    },1000);//每一秒變換
 }
 
 function setAttackMode(){
@@ -328,6 +331,8 @@ document.getElementById("clock").innerHTML = `
 `;
 function setRemainingPathColor(timeLeft) {
     const { alert, warning, info } = COLOR_CODES;
+
+    // If the remaining time is less than or equal to 5, remove the "warning" class and apply the "alert" class.
     if (timeLeft <= alert.threshold) {
         document
             .getElementById("base-timer-path-remaining")
@@ -335,6 +340,8 @@ function setRemainingPathColor(timeLeft) {
         document
             .getElementById("base-timer-path-remaining")
             .classList.add(alert.color);
+
+        // If the remaining time is less than or equal to 10, remove the base color and apply the "warning" class.
     } else if (timeLeft <= warning.threshold) {
         document
             .getElementById("base-timer-path-remaining")
@@ -346,10 +353,10 @@ function setRemainingPathColor(timeLeft) {
 }
 
 function calculateTimeFraction() {
-    const rawTimeFraction = timeLeft / TIME_LIMIT;
-    return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+    return timeLeft / TIME_LIMIT;
 }
 
+// Update the dasharray value as time passes, starting with 283
 function setCircleDasharray() {
     const circleDasharray = `${(
         calculateTimeFraction() * FULL_DASH_ARRAY
@@ -358,7 +365,6 @@ function setCircleDasharray() {
         .getElementById("base-timer-path-remaining")
         .setAttribute("stroke-dasharray", circleDasharray);
 }
-
 
 
 
