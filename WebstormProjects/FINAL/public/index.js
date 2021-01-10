@@ -1,6 +1,6 @@
+//draw background 800*600
 let canvas = document.getElementById("canvas"),
-    context = canvas.getContext("2d");
-//draw a background
+    context = canvas.getContext("2d"); //canvas
 let img_Background = new Image();
     img_Background.src = "/assets/background.png";
     img_Background.Id = "img_Background";
@@ -8,6 +8,17 @@ img_Background.onload = function(){
     context.imageSmoothingEnabled = false;
     context.drawImage(img_Background,0,0,800,600);
 }
+
+//draw News 800*100
+let canvasNews = document.getElementById("canvasNews"),
+    contextNews = canvasNews .getContext("2d"); //canvasNews
+let img_News = new Image();
+    img_News.src = "/assets/文字條.png";
+img_News.onload = function(){
+    contextNews.imageSmoothingEnabled = false;
+    contextNews.drawImage(img_News,0,0,800,100);
+}
+
 //people x,y,size
 const people_x1 =50, people_x2=600;
 const people_y=290;

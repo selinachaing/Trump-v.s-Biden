@@ -10,6 +10,7 @@ let add_1=false,add_2=false;
 let skillcount_1=1,skillcount_2=1,skillcount_3=1,skillcount_4=1;
 let addcount_1=1,addcount_2=1;
 
+let stringNews;
 //startTimer();
 
 canvas.onmousemove = function (e){
@@ -83,16 +84,21 @@ canvas.onclick = function (){
     //trump add
     if(add_1 && addcount_1 > 0){
         console.log("using trump add ");
+        displayNews("拜登之子亨特．拜登曾與嫂子哈莉搞婚外情",10,50);//
         addcount_1 -= 1;
     }
     //trump skill 0
     if(skill_1 && skillcount_1 > 0){
         console.log("using skill 1 ");
+        displayNews("速報！喬．拜登之子亨特．拜登糟《紐約郵報》披露使用的個人筆記本電腦中的大量通訊、照片，包含不雅照、吸毒。",10,50);//
+        //displayNews("New York post article based on purported juicy emails and photos found on a laptop.",10,70);
         skillcount_1 -= 1;
     }
     //trump skill 1
     if(skill_2 && skillcount_2 > 0){
         console.log("using skill 2 ");
+        displayNews("拜登之子亨特．拜登曾與嫂子哈莉搞婚外情",10,50);//
+        //displayNews("Hunter used to date his widowed sister-in-law, Hallie Biden, who had lost her husband, Beau, to brain cancer in 2015",10,70);
         skillcount_2 -= 1;
     }
     ////////////
@@ -100,16 +106,19 @@ canvas.onclick = function (){
     //biden skill 0
     if(skill_3 && skillcount_3 > 0){
         console.log("using skill 3 ");
+        displayNews("幫川普掩蓋「AV女星緋聞」　前私人律師遭判入監3年徒刑",10,50);//
         skillcount_3 -= 1;
     }
     //biden skill 1
     if(skill_4 && skillcount_4 > 0) {
         console.log("using skill 4 ");
+        displayNews("川普確診新冠肺炎！拜登呼籲全民戴口罩；專家評估：對拜登選情非常有利",10,50);//
         skillcount_4 -= 1;
     }
     //biden add
     if(add_2 && addcount_2 > 0){
         console.log("using biden add ");
+        displayNews("大逆轉！！郵寄選票翻轉搖擺州！！拜登目前領先川普！！",10,50);//
         addcount_2 -= 1;
     }
 }
@@ -132,7 +141,7 @@ canvas.onmouseup = function (){
         console.log("biden attack");
         onTimesUp();
         resetTimer();
-        switchRound()
+        switchRound();
     }
 }
 //mouseup為測試
@@ -174,6 +183,25 @@ function switchRound(){
         console.log("biden turn");
     }
 } //success
+
+function displayNews(StringNews,x,y){
+    contextNews.font = '15px Courier';
+    contextNews.fillStyle = "red";
+    contextNews.fillText(StringNews,x,y);
+    setTimeout(function (){
+        clearNews();
+    },3000);
+}
+function clearNews(){
+    contextNews.clearRect(0,0,800,100);
+    let img_News = new Image();
+    img_News.src = "/assets/文字條.png";
+    img_News.onload = function(){
+        contextNews.imageSmoothingEnabled = false;
+        contextNews.drawImage(img_News,0,0,800,100);
+    }
+}
+
 
 const TIME_LIMIT = 10;//10秒換組
 let timePassed = 0;
